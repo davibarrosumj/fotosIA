@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Olho Vivo: É Foto ou Imagem de Inteligência Artificial?</title>
+  <!-- Tailwind CSS para estilização moderna e responsiva -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter e Lexend (excelente legibilidade para leitura sênior) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Lexend"', 'sans-serif'],
+            display: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            elderBlue: '#0f2b46',
+            amberAlert: '#c2410c',
+            warmBg: '#f8fafc',
+            cardBg: '#ffffff',
+            badgeBg: '#e0f2fe',
+            borderDotted: '#94a3b8'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Suporte a transições suaves e acessibilidade */
+    html {
+      scroll-behavior: smooth;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Regras de ampliação de fonte ativadas por classe */
+    body.font-xlarge {
+      font-size: 1.25rem;
+    }
+    body.font-xlarge h1 { font-size: 2.3rem !important; line-height: 1.25 !important; }
+    body.font-xlarge h2 { font-size: 1.85rem !important; line-height: 1.3 !important; }
+    body.font-xlarge p, body.font-xlarge li { font-size: 1.35rem !important; line-height: 1.6 !important; }
+
+    /* Alto contraste opcional */
+    body.high-contrast {
+      background-color: #000000 !important;
+      color: #ffffff !important;
+    }
+    body.high-contrast .card-theme {
+      background-color: #121212 !important;
+      color: #ffffff !important;
+      border: 2px solid #facc15 !important;
+    }
+    body.high-contrast .subtext-theme {
+      color: #fef08a !important;
+    }
+    body.high-contrast .placeholder-box {
+      background-color: #1e293b !important;
+      border-color: #38bdf8 !important;
+      color: #ffffff !important;
+    }
+
+    /* Sobrescritas completas para evitar qualquer tom azul escuro ou cinza escuro sobre fundo preto */
+    body.high-contrast h1,
+    body.high-contrast h2,
+    body.high-contrast h3,
+    body.high-contrast strong,
+    body.high-contrast .text-slate-900,
+    body.high-contrast .text-slate-800,
+    body.high-contrast .text-slate-700,
+    body.high-contrast .text-slate-600,
+    body.high-contrast .text-blue-900,
+    body.high-contrast .text-blue-800,
+    body.high-contrast .text-emerald-900,
+    body.high-contrast .text-emerald-800,
+    body.high-contrast .text-amber-900,
+    body.high-contrast .text-pink-800,
+    body.high-contrast .text-cyan-800,
+    body.high-contrast .text-purple-800 {
+      color: #ffffff !important;
+    }
+
+    body.high-contrast header {
+      background-color: #000000 !important;
+      border-color: #facc15 !important;
+    }
+
+    body.high-contrast button {
+      border-color: #facc15 !important;
+    }
+
+    /* Abas de alternância de imagem e caixas informativas no alto contraste */
+    body.high-contrast #tabReal,
+    body.high-contrast #tabAI {
+      background-color: #1f2937 !important;
+      color: #ffffff !important;
+      border-color: #94a3b8 !important;
+    }
+    body.high-contrast #tabReal.bg-white,
+    body.high-contrast #tabAI.bg-white {
+      background-color: #facc15 !important;
+      color: #000000 !important;
+      font-weight: 800 !important;
+    }
+
+    /* Caixas de dicas com borda e fundo escuro com texto destacado */
+    body.high-contrast .bg-emerald-50,
+    body.high-contrast .bg-amber-50 {
+      background-color: #141c24 !important;
+      border-color: #38bdf8 !important;
+    }
+    body.high-contrast .bg-emerald-50 *,
+    body.high-contrast .bg-amber-50 * {
+      color: #fef08a !important;
+    }
+
+    /* Ícones com fundo escuro e borda amarela no alto contraste */
+    body.high-contrast .bg-amber-100,
+    body.high-contrast .bg-pink-100,
+    body.high-contrast .bg-cyan-100,
+    body.high-contrast .bg-purple-100,
+    body.high-contrast .bg-emerald-100,
+    body.high-contrast .bg-blue-100 {
+      background-color: #1e293b !important;
+      border: 1px solid #facc15 !important;
+      color: #ffffff !important;
+    }
+
+    /* Rodapé legível */
+    body.high-contrast footer p {
+      color: #cbd5e1 !important;
+    }
+
+    /* Animação suave para toques em celulares */
+    .tap-effect {
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .tap-effect:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body id="pamphletBody" class="bg-warmBg text-slate-900 font-sans antialiased text-lg leading-relaxed selection:bg-amber-200">
+
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b-2 border-slate-200 shadow-sm px-4 py-3">
+    <div class="max-w-md mx-auto flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-800 font-bold text-base">
+          🔍
+        </span>
+        <span class="font-bold text-slate-800 text-base md:text-lg">Guia Olho Vivo</span>
+      </div>
+
+      <!-- Controles de Acessibilidade para visão facilitada -->
+      <div class="flex items-center gap-1.5" role="toolbar" aria-label="Ferramentas de acessibilidade">
+        <button id="btnTextSize" onclick="toggleTextSize()" class="tap-effect flex items-center justify-center px-3 py-1.5 rounded-xl bg-slate-100 border border-slate-300 text-slate-800 font-bold text-sm hover:bg-slate-200 focus:ring-4 focus:ring-blue-300" aria-label="Aumentar ou diminuir tamanho do texto">
+          <span class="text-xs mr-0.5">A</span><span class="text-base font-extrabold">A+</span>
+        </button>
+        <button id="btnContrast" onclick="toggleContrast()" class="tap-effect p-2 rounded-xl bg-slate-100 border border-slate-300 text-slate-800 text-base hover:bg-slate-200 focus:ring-4 focus:ring-amber-300" title="Alternar alto contraste" aria-label="Alternar alto contraste">
+          🌓
+        </button>
+        <button id="btnAudio" onclick="speakPamphlet()" class="tap-effect p-2 rounded-xl bg-blue-600 text-white text-base hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 shadow-sm" title="Ouvir panfleto em voz alta" aria-label="Ouvir narração">
+          <span id="audioIcon">🔊</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-md mx-auto px-4 pb-20 pt-4 flex flex-col gap-6">
+
+    <!-- Cartão Inicial / Apresentação -->
+    <section class="card-theme bg-white rounded-3xl p-6 shadow-md border border-slate-200 text-center">
+      <div class="inline-block bg-blue-100 text-blue-900 font-extrabold text-sm px-4 py-1.5 rounded-full mb-3 tracking-wide">
+        PARA A MELHOR IDADE (60+)
+      </div>
+      
+      <h1 class="font-display font-extrabold text-slate-900 text-3xl leading-tight mb-3">
+        É Foto de Verdade ou Foi Feita por Computador?
+      </h1>
+      
+      <p class="subtext-theme text-slate-700 text-lg leading-snug">
+        Hoje os computadores criam retratos que <strong>parecem fotografias reais</strong>, mas não são. Aprenda a não se deixar enganar com alguns truques simples!
+      </p>
+    </section>
+
+    <section class="card-theme bg-white rounded-3xl p-5 shadow-md border-2 border-blue-400">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-2xl">🔎</span>
+        <h2 class="font-display font-bold text-slate-900 text-xl">
+          Espaço de Comparação
+        </h2>
+      </div>
+
+      <p class="subtext-theme text-slate-600 text-base mb-3 leading-relaxed">
+        Toque nos botões abaixo para alternar entre a <strong>Foto Verdadeira</strong> e a <strong>Imagem Criada por IA</strong>:
+      </p>
+
+      <!-- Alternador de Abas de Imagem -->
+      <div class="grid grid-cols-2 gap-2 p-1.5 bg-slate-100 rounded-2xl mb-4">
+        <button id="tabReal" onclick="switchImageTab('real')" class="py-3 px-2 rounded-xl font-bold text-base transition-all bg-white text-blue-900 shadow-sm border border-slate-200">
+          📷 1. Foto Real
+        </button>
+        <button id="tabAI" onclick="switchImageTab('ai')" class="py-3 px-2 rounded-xl font-bold text-base transition-all text-slate-600 hover:text-slate-900">
+          🤖 2. Imagem por IA
+        </button>
+      </div>
+
+      <!-- FOTO REAL -->
+      <div id="viewReal" class="w-full flex flex-col items-center">
+        <div class="w-full rounded-2xl overflow-hidden border-4 border-emerald-500 shadow-md bg-slate-900 relative">
+          <img 
+            id="imgReal"
+            src="imagens/pexels-jibarofoto-17733996.jpg" 
+            alt="Fotografia autêntica de um rapaz sorridente de camiseta branca e óculos" 
+            class="w-full h-auto max-h-[520px] object-cover object-top block"
+            loading="eager"
+          />
+          <div class="absolute top-3 left-3 bg-emerald-600/95 text-white font-extrabold text-xs px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5">
+            <span>✅</span>
+            <span>FOTOGRAFIA REAL</span>
+          </div>
+        </div>
+
+        <!-- Pistas do que observar na foto autêntica -->
+        <div class="w-full mt-3 p-3.5 bg-emerald-50 border border-emerald-200 rounded-2xl text-left">
+          <span class="font-extrabold text-emerald-900 text-sm block mb-1">
+            🔍 Observe a autenticidade nesta foto:
+          </span>
+          <ul class="text-xs md:text-sm text-emerald-800 space-y-1 list-disc list-inside">
+            <li><strong>Letras nítidas:</strong> Na estampa da camiseta lê-se claramente <em>"LEGENDARY TEAM NYC Authentic"</em> sem borrões sem sentido.</li>
+            <li><strong>Pele viva:</strong> Textura natural do rosto com poros visíveis, barba rala real e linhas de expressão orgânicas.</li>
+            <li><strong>Fundo:</strong> As pessoas atrás estão desfocadas pela lente real da câmera, mantendo proporções humanas perfeitas.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- IMAGEM GERADA POR IA -->
+      <div id="viewAI" class="w-full flex-col items-center hidden">
+        <div class="w-full rounded-2xl overflow-hidden border-4 border-amber-500 shadow-md bg-slate-900 relative">
+          <img 
+            id="imgAI"
+            src="imagens/Gemini_Generated_Image_pqnjtwpqnjtwpqnj.jpg" 
+            alt="Imagem gerada por inteligência artificial de uma moça em uma cafeteria" 
+            class="w-full h-auto max-h-[520px] object-cover object-top block"
+            loading="eager"
+          />
+          <div class="absolute top-3 left-3 bg-amber-600/95 text-white font-extrabold text-xs px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5">
+            <span>🤖</span>
+            <span>CRIADA POR COMPUTADOR (IA)</span>
+          </div>
+        </div>
+
+        <!-- Pistas do que entrega a imagem gerada -->
+        <div class="w-full mt-3 p-3.5 bg-amber-50 border border-amber-200 rounded-2xl text-left">
+          <span class="font-extrabold text-amber-900 text-sm block mb-1">
+            ⚠️ Veja os detalhes que entregam a criação por IA:
+          </span>
+          <ul class="text-xs md:text-sm text-amber-900 space-y-1 list-disc list-inside">
+            <li><strong>Pessoas no fundo:</strong> Olhe bem para as pessoas sentadas nas mesas ao fundo; seus rostos e corpos estão distorcidos e sem definição.</li>
+            <li><strong>Caderno e caneta:</strong> As linhas e escritas no caderno parecem rabiscos indecifráveis, e a caneta tem formato genérico.</li>
+            <li><strong>Pele hiperperfeita:</strong> Brilho aveludado e uniforme demais, semelhante a uma pintura digital ou filtro exagerado.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <div class="px-2">
+        <h2 class="font-display font-extrabold text-slate-900 text-2xl mb-1">
+          Os 5 Detalhes Que Entregam a IA
+        </h2>
+        <p class="subtext-theme text-slate-600 text-base">
+          Dê bastante "zoom" na tela e procure por estes sinais:
+        </p>
+      </div>
+
+      <!-- DICA 1: Mãos e Dedos -->
+      <article class="card-theme bg-white rounded-3xl p-5 shadow-sm border-2 border-slate-200">
+        <div class="flex items-start gap-4">
+          <div class="w-14 h-14 shrink-0 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center text-3xl font-bold shadow-sm">
+            🖐️
+          </div>
+          <div>
+            <h3 class="font-bold text-slate-900 text-xl mb-1">
+              1. Mãos e Dedos Estranhos
+            </h3>
+            <p class="subtext-theme text-slate-700 text-base leading-relaxed">
+              O computador costuma se confundir com dedos! Repare se há <strong>6 dedos</strong>, dedos fundidos como cera de vela ou se a mão está dobrada em ângulos impossíveis.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- DICA 2: Pele Plástica Demais -->
+      <article class="card-theme bg-white rounded-3xl p-5 shadow-sm border-2 border-slate-200">
+        <div class="flex items-start gap-4">
+          <div class="w-14 h-14 shrink-0 rounded-2xl bg-pink-100 text-pink-800 flex items-center justify-center text-3xl font-bold shadow-sm">
+            🧴
+          </div>
+          <div>
+            <h3 class="font-bold text-slate-900 text-xl mb-1">
+              2. Pele de Boneca de Cera
+            </h3>
+            <p class="subtext-theme text-slate-700 text-base leading-relaxed">
+              Pessoas reais têm poros, rugas naturais, pequenas manchas e marcas de expressão. Imagens de IA costumam parecer <strong>lisas demais, plastificadas ou brilhantes</strong> como porcelana.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- DICA 3: Olhos, Pupilas e Óculos -->
+      <article class="card-theme bg-white rounded-3xl p-5 shadow-sm border-2 border-slate-200">
+        <div class="flex items-start gap-4">
+          <div class="w-14 h-14 shrink-0 rounded-2xl bg-cyan-100 text-cyan-800 flex items-center justify-center text-3xl font-bold shadow-sm">
+            👀
+          </div>
+          <div>
+            <h3 class="font-bold text-slate-900 text-xl mb-1">
+              3. Olhos e Óculos Tortos
+            </h3>
+            <p class="subtext-theme text-slate-700 text-base leading-relaxed">
+              Olhe bem dentro dos olhos: as <strong>pupilas</strong> têm formatos redondos iguais? O reflexo da luz nos dois olhos é o mesmo? Se a pessoa usar óculos, a armação geralmente se funde à pele.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- DICA 4: Letras e Placas no Fundo -->
+      <article class="card-theme bg-white rounded-3xl p-5 shadow-sm border-2 border-slate-200">
+        <div class="flex items-start gap-4">
+          <div class="w-14 h-14 shrink-0 rounded-2xl bg-purple-100 text-purple-800 flex items-center justify-center text-3xl font-bold shadow-sm">
+            🪧
+          </div>
+          <div>
+            <h3 class="font-bold text-slate-900 text-xl mb-1">
+              4. Textos que Parecem Alfarrábios
+            </h3>
+            <p class="subtext-theme text-slate-700 text-base leading-relaxed">
+              Placas de trânsito, camisas estampadas ou livros ao fundo costumam ter <strong>letras inventadas ou palavras indecifráveis</strong> parecendo runas mágicas ou símbolos sem nexo.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- DICA 5: Dentes e Acessórios -->
+      <article class="card-theme bg-white rounded-3xl p-5 shadow-sm border-2 border-slate-200">
+        <div class="flex items-start gap-4">
+          <div class="w-14 h-14 shrink-0 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center text-3xl font-bold shadow-sm">
+            😁
+          </div>
+          <div>
+            <h3 class="font-bold text-slate-900 text-xl mb-1">
+              5. Sorrisos com "Dentes Demais"
+            </h3>
+            <p class="subtext-theme text-slate-700 text-base leading-relaxed">
+              Muitas vezes a boca apresenta uma fileira infinita de dentes ou brincos que estão em uma orelha mas desaparecem do outro lado.
+            </p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="card-theme bg-gradient-to-br from-amber-500 to-amber-600 text-white rounded-3xl p-6 shadow-lg">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="text-3xl">⚠️</span>
+        <h2 class="font-display font-extrabold text-white text-2xl">
+          A Regra de Ouro:
+        </h2>
+      </div>
+      <p class="text-amber-50 text-xl font-bold leading-relaxed mb-4">
+        "Se a imagem parece inacreditável ou se desperta medo e pressa repentina, não compartilhe antes de conferir!"
+      </p>
+      <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-4 text-white text-base">
+        <strong>Dica protetora:</strong> Golpistas usam imagens de falsas autoridades, remédios milagrosos ou netos em perigo. Pergunte a alguém de confiança da família.
+      </div>
+    </section>
+
+    <div class="flex flex-col gap-3 pt-2">
+      <button onclick="copiarDicas()" class="tap-effect w-full py-4 px-6 rounded-2xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-xl shadow-lg shadow-blue-200 flex items-center justify-center gap-3">
+        <span>📲</span>
+        <span>Compartilhar com Amigos</span>
+      </button>
+
+      <!-- Mensagem amigável de status (substituindo alerts) -->
+      <div id="toastMessage" class="hidden text-center py-3 px-4 bg-emerald-100 border border-emerald-300 text-emerald-900 rounded-xl font-bold text-base">
+        ✅ Texto copiado! Você já pode colar no seu WhatsApp para ajudar seus amigos!
+      </div>
+    </div>
+
+    <!-- Rodapé carinhoso e inclusivo -->
+    <footer class="text-center text-slate-500 text-sm mt-4 pb-8">
+      <p>Material educativo elaborado especialmente para oficinas de inclusão digital 60+.</p>
+      <p class="mt-1 font-semibold text-slate-600">Navegue com calma, observe os detalhes!</p>
+    </footer>
+
+  </main>
+
+  <script>
+    /* ====================================================================
+       CONFIGURAÇÃO DE HOSPEDAGEM (GitHub / Servidor)
+       - Por padrão busca na subpasta 'imagens/' relativa ao HTML.
+       - Se quiser que o preview no Canvas carregue direto do GitHub antes
+         mesmo de subir, basta preencher GITHUB_BASE_URL com a URL bruta 
+         (raw.githubusercontent.com ou a url do seu GitHub Pages).
+       ==================================================================== */
+    const GITHUB_BASE_URL = ""; // Ex: "https://raw.githubusercontent.com/seu-usuario/seu-repositorio/main/"
+
+    (function inicializarCaminhosImagens() {
+      if (GITHUB_BASE_URL) {
+        const imgReal = document.getElementById('imgReal');
+        const imgAI = document.getElementById('imgAI');
+        const base = GITHUB_BASE_URL.endsWith('/') ? GITHUB_BASE_URL : GITHUB_BASE_URL + '/';
+        
+        if (imgReal) imgReal.src = base + 'imagens/pexels-jibarofoto-17733996.jpg';
+        if (imgAI) imgAI.src = base + 'imagens/Gemini_Generated_Image_pqnjtwpqnjtwpqnj.jpg';
+      }
+    })();
+
+    // Alternar entre Foto Real e Imagem de IA
+    function switchImageTab(type) {
+      const tabReal = document.getElementById('tabReal');
+      const tabAI = document.getElementById('tabAI');
+      const viewReal = document.getElementById('viewReal');
+      const viewAI = document.getElementById('viewAI');
+
+      if (type === 'real') {
+        tabReal.className = 'py-3 px-2 rounded-xl font-bold text-base transition-all bg-white text-blue-900 shadow-sm border border-slate-200';
+        tabAI.className = 'py-3 px-2 rounded-xl font-bold text-base transition-all text-slate-600 hover:text-slate-900';
+        viewReal.classList.remove('hidden');
+        viewAI.classList.add('hidden');
+      } else {
+        tabAI.className = 'py-3 px-2 rounded-xl font-bold text-base transition-all bg-white text-blue-900 shadow-sm border border-slate-200';
+        tabReal.className = 'py-3 px-2 rounded-xl font-bold text-base transition-all text-slate-600 hover:text-slate-900';
+        viewAI.classList.remove('hidden');
+        viewReal.classList.add('hidden');
+      }
+    }
+
+    // Aumentar / Normalizar tamanho do texto para leitura confortável
+    let isLargeFont = false;
+    function toggleTextSize() {
+      const body = document.getElementById('pamphletBody');
+      const btn = document.getElementById('btnTextSize');
+      isLargeFont = !isLargeFont;
+      
+      if (isLargeFont) {
+        body.classList.add('font-xlarge');
+        btn.innerHTML = '<span class="text-xs mr-0.5">A</span><span class="text-base font-extrabold text-blue-600">A-</span>';
+      } else {
+        body.classList.remove('font-xlarge');
+        btn.innerHTML = '<span class="text-xs mr-0.5">A</span><span class="text-base font-extrabold">A+</span>';
+      }
+    }
+
+    // Alternar Modo de Alto Contraste
+    let isHighContrast = false;
+    function toggleContrast() {
+      const body = document.getElementById('pamphletBody');
+      isHighContrast = !isHighContrast;
+      if (isHighContrast) {
+        body.classList.add('high-contrast');
+      } else {
+        body.classList.remove('high-contrast');
+      }
+    }
+
+    // Leitura amigável do conteúdo em voz alta (Web Speech API)
+    let isSpeaking = false;
+    function speakPamphlet() {
+      if (!('speechSynthesis' in window)) {
+        showToast("Seu navegador não suporta leitura de áudio.");
+        return;
+      }
+
+      const icon = document.getElementById('audioIcon');
+
+      if (isSpeaking) {
+        window.speechSynthesis.cancel();
+        isSpeaking = false;
+        icon.textContent = '🔊';
+        return;
+      }
+
+      const texto = `Guia Olho Vivo: Como identificar fotos falsas criadas por inteligência artificial. 
+      Na comparação acima, repare na fotografia real do jovem de camiseta: as letras da camiseta são perfeitamente legíveis e a pele tem textura natural.
+      Já na imagem feita por computador da moça no café, observe as pessoas deformadas ao fundo e as escritas sem sentido no caderno da mesa.
+      Dica um: Mãos e dedos estranhos. O computador costuma errar nos dedos.
+      Dica dois: Pele de boneca de cera com brilho excessivo.
+      Dica três: Olhos, pupilas e óculos que se fundem ao rosto.
+      Dica quatro: Textos e placas ao fundo com palavras indecifráveis.
+      Dica cinco: Sorrisos artificiais.
+      Regra de ouro: se a foto parece surreal ou gera urgência repentina, não repasse. Confirme primeiro com a família.`;
+
+      const utterance = new SpeechSynthesisUtterance(texto);
+      utterance.lang = 'pt-BR';
+      utterance.rate = 0.9; // Leitura um pouco mais pausada para clareza
+
+      utterance.onend = function() {
+        isSpeaking = false;
+        icon.textContent = '🔊';
+      };
+
+      utterance.onerror = function() {
+        isSpeaking = false;
+        icon.textContent = '🔊';
+      };
+
+      isSpeaking = true;
+      icon.textContent = '⏹️';
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // Copiar resumo das dicas para área de transferência
+    function copiarDicas() {
+      const textoParaCopiar = `*Guia Rápido: Como saber se uma foto é de mentira (feita por Inteligência Artificial)* 🔍\n\n` +
+        `1. *Mãos:* Conte os dedos (costuma ter 6 ou estar torto).\n` +
+        `2. *Pele:* Se parecer lisa e brilhante como plástico de boneca, desconfie.\n` +
+        `3. *Olhos:* Pupilas tortas ou óculos misturados com o rosto.\n` +
+        `4. *Placas no fundo:* Letras esquisitas e sem sentido.\n` +
+        `5. *Dentes:* Sorrisos com dentes em excesso.\n\n` +
+        `⚠️ Na dúvida, nunca repasse nem acredite de primeira!`;
+
+      const tempTextArea = document.createElement("textarea");
+      tempTextArea.value = textoParaCopiar;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      try {
+        document.execCommand('copy');
+        showToast("✅ Dicas copiadas! Agora é só colar no WhatsApp da família!");
+      } catch (err) {
+        showToast("Não foi possível copiar automaticamente.");
+      }
+      document.body.removeChild(tempTextArea);
+    }
+
+    // Exibir balão de confirmação sem travamentos de alert
+    function showToast(mensagem) {
+      const toast = document.getElementById('toastMessage');
+      toast.textContent = mensagem;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 5000);
+    }
+  </script>
+</body>
+</html>
